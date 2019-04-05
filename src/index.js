@@ -3,25 +3,41 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
+import firebase from './firebase';
 
 import * as serviceWorker from './serviceWorker';
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom';
 
 
-const Root = () => {
-    return (
-        <Router>
+class Root extends React.Component{
+    componentDidMount(){
+        firebase.auth().onAuthStateChanged(user => {
+            if(user){
+                this.props.history.push('/');
+            }
+        })
+    }
+
+    render(){
+        return(
+            
             <Switch>
                 <Route exact path="/" component={App} />
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
             </Switch>
-        </Router>
-    )
-}
+        
+        )
+    }
+} 
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+const RootWithAuth = withRouter(Root);
+
+ReactDOM.render(
+<Router>
+<RootWithAuth />
+</Router>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
