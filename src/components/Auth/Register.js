@@ -54,7 +54,8 @@ class Register extends React.Component {
         email: "",
         password: "",
         passwordConfirmation: "",
-        errors: []
+        errors: [],
+        loading: false
     };
 
     isFormValid = () => {
@@ -103,31 +104,40 @@ class Register extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         if (this.isFormValid()) {
-      
+            
+            this.setState({errors:[], loading: true});
+
             firebase
                 .auth()
                 .createUserWithEmailAndPassword(this.state.email, this.state.password)
                 .then(createdUser => {
                     console.log(createdUser);
+                    this.setState({loading: false});
                 })
                 .catch(err => {
                     console.error(err);
+                    this.setState({errors: this.state.errors.concat(err), loading: false})
                 });
         }
     };
 
+    handleInputError = (errors, inputName) => {
+        return errors.some(error => 
+            error.message.toLowerCase().includes('email')) ? 'error' : ''
+    }
+
     render() {
-        const { username, email, password, passwordConfirmation } = this.state;
+        const { username, email, password, passwordConfirmation, errors, loading } = this.state;
         return (
             <div>
                 <Header>Register</Header>
                 <RegisterBox>
                     <Form onSubmit={this.handleSubmit}>
                         <Input type="text" name="username" placeholder="Username" onChange={this.handleChange} value={username} />
-                        <Input type="email" name="email" placeholder="Email Adress" onChange={this.handleChange} value={email}></Input>
-                        <Input type="password" name="password" placeholder="Password" onChange={this.handleChange} value={password} />
+                        <Input type="email" name="email" placeholder="Email Adress" onChange={this.handleChange} value={email} className={this.handleInputError(errors, 'email')}></Input>
+                        <Input type="password" name="password" placeholder="Password" onChange={this.handleChange} value={password} className={this.handleInputError(errors, 'password')}/>
                         <Input type="password" name="passwordConfirmation" placeholder="Password Confirmation" onChange={this.handleChange} value={passwordConfirmation} />
-                        <Button type="submit">Submit</Button>
+                        <Button disabled={loading} className={loading ? 'loading' : ''} type="submit">Submit</Button>
                     </Form>
                     {this.state.errors.length > 0 && (
                         <div>
