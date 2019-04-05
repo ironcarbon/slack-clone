@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import firebase from '../../firebase';
 import md5 from 'md5';
+import {Link} from 'react-router-dom';
 
 
 const RegisterBox = styled.div`
@@ -169,7 +170,9 @@ class Register extends React.Component {
                         </div>
                     )}
                 </RegisterBox>
-                <Message>Already a user?</Message>
+                <Message>
+                    Already a user? <Link to="/login">Login</Link>
+                    </Message>
             </div>
 
         )
