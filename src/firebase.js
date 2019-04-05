@@ -12,8 +12,8 @@ var config = {
     projectId: "react-slack-clone-15f87",
     storageBucket: "react-slack-clone-15f87.appspot.com",
     messagingSenderId: "536589357291"
-};
-firebase.initializeApp(config);
+  };
+  firebase.initializeApp(config);
 
 
 export default firebase;

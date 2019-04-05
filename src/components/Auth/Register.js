@@ -50,42 +50,91 @@ const Header = styled.div`
 
 class Register extends React.Component {
     state = {
-        username: '',
-        email: '',
-        password: '',
-        passwordConfirmation: ''
-    }
+        username: "",
+        email: "",
+        password: "",
+        passwordConfirmation: "",
+        errors: []
+    };
+
+    isFormValid = () => {
+        let errors = [];
+        let error;
+
+        if (this.isFormEmpty(this.state)) {
+            error = { message: "Fill in all fields" };
+            this.setState({ errors: errors.concat(error) });
+            return false;
+        } else if (!this.isPasswordValid(this.state)) {
+            error = { message: "Password is invalid" };
+            this.setState({ errors: errors.concat(error) });
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+    isFormEmpty = ({ username, email, password, passwordConfirmation }) => {
+        return (
+            !username.length ||
+            !email.length ||
+            !password.length ||
+            !passwordConfirmation.length
+        );
+    };
+
+    isPasswordValid = ({ password, passwordConfirmation }) => {
+        if (password.length < 6 || passwordConfirmation.length < 6) {
+            return false;
+        } else if (password !== passwordConfirmation) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+    displayErrors = errors =>
+        errors.map((error, i) => <p key={i}>{error.message}</p>);
+
     handleChange = event => {
         this.setState({ [event.target.name]: event.target.value });
-    }
+    };
 
     handleSubmit = event => {
         event.preventDefault();
+        if (this.isFormValid()) {
+      
+            firebase
+                .auth()
+                .createUserWithEmailAndPassword(this.state.email, this.state.password)
+                .then(createdUser => {
+                    console.log(createdUser);
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        }
+    };
 
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then(createdUser => {
-                console.log(createdUser)
-            })
-            .catch(err => {
-                console.log(err);
-            });
-
-    }
     render() {
         const { username, email, password, passwordConfirmation } = this.state;
         return (
             <div>
                 <Header>Register</Header>
                 <RegisterBox>
-
                     <Form onSubmit={this.handleSubmit}>
                         <Input type="text" name="username" placeholder="Username" onChange={this.handleChange} value={username} />
                         <Input type="email" name="email" placeholder="Email Adress" onChange={this.handleChange} value={email}></Input>
                         <Input type="password" name="password" placeholder="Password" onChange={this.handleChange} value={password} />
                         <Input type="password" name="passwordConfirmation" placeholder="Password Confirmation" onChange={this.handleChange} value={passwordConfirmation} />
                         <Button type="submit">Submit</Button>
-                        
                     </Form>
+                    {this.state.errors.length > 0 && (
+                        <div>
+
+                            {this.displayErrors(this.state.errors)}
+                        </div>
+                    )}
                 </RegisterBox>
                 <Message>Already a user?</Message>
             </div>
