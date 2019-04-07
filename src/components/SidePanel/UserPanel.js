@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import firebase from "../../firebase";
 
 const Header = styled.h2`
   text-align: center;
@@ -39,6 +40,18 @@ class UserPanel extends React.Component {
     });
   };
 
+  handleSignOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        console.log("signed out");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <div>
@@ -53,7 +66,9 @@ class UserPanel extends React.Component {
           >
             <Button userButton>Sign in as User</Button>
             <Button userButton>Change Avatar</Button>
-            <Button userButton>Sign Out</Button>
+            <Button userButton onClick={this.handleSignOut}>
+              Sign Out
+            </Button>
           </div>
         ) : null}
       </div>
