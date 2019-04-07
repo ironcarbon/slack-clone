@@ -13,6 +13,7 @@ const Button = styled.button`
   ${props =>
     props.userButton &&
     css`
+      display: inline-block;
       padding: 0.5rem;
       border-radius: 5px;
       font-size: 1rem;
@@ -23,6 +24,12 @@ const Button = styled.button`
 //   margin: -1rem 1rem;
 //   margin-right: 3rem;
 // `;
+
+const Image = styled.img`
+  display: inline-block;
+  width: 20%;
+  border-radius: 25px;
+`;
 
 class UserPanel extends React.Component {
   state = {
@@ -61,10 +68,11 @@ class UserPanel extends React.Component {
   };
 
   render() {
+    // console.log(this.state.user);
     return (
       <div>
         <Header>Chit Chat</Header>
-
+        <Image src={this.state.user.photoURL} />
         <Button userButton onClick={this.dropDownOptions}>
           <strong>{this.state.user.displayName}</strong>
         </Button>
