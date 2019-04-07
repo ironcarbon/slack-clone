@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
-// import firebase from "../../firebase";
-import { connect } from "react-redux";
-import firebase from "firebase";
+import firebase from "../../firebase";
+
+//import firebase from "firebase";
 
 const Header = styled.h2`
   text-align: center;
@@ -27,13 +27,13 @@ const Button = styled.button`
 class UserPanel extends React.Component {
   state = {
     showMenu: false,
-    displayName: "Profile"
+    user: this.props.currentUser
   };
-  componentDidMount() {
-    let currentUserName = firebase.auth().currentUser.displayName;
-    this.setState({ displayName: currentUserName });
-    console.log(currentUserName);
-  }
+  // componentDidMount() {
+  //   let currentUserName = firebase.auth().currentUser.displayName;
+  //   this.setState({ displayName: currentUserName });
+  //   console.log(currentUserName);
+  // }
 
   dropDownOptions = e => {
     e.preventDefault();
@@ -66,7 +66,7 @@ class UserPanel extends React.Component {
         <Header>Chit Chat</Header>
 
         <Button userButton onClick={this.dropDownOptions}>
-          {this.state.displayName}
+          <strong>{this.state.user.displayName}</strong>
         </Button>
         {this.state.showMenu ? (
           <div
@@ -85,8 +85,4 @@ class UserPanel extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  currentName: state.user.displayName
-});
-
-export default connect(mapStateToProps)(UserPanel);
+export default UserPanel;
