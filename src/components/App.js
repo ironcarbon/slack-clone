@@ -9,7 +9,8 @@ import styled from 'styled-components';
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr)
+  grid-template-columns: repeat(4, auto);
+  grid-gap: 10px;
 `
 
 class App extends Component {
