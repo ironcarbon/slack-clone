@@ -1,18 +1,14 @@
 import React from "react";
 import UserPanel from "./UserPanel";
+import Channels from "./Channels";
 
 class SidePanel extends React.Component {
   render() {
     const { currentUser } = this.props;
     return (
-      <div
-        style={{
-          display: "grid",
-          gridTemplateRows: "minmax(100vh,max-content)",
-          background: "green"
-        }}
-      >
+      <div style={{ background: "green" }}>
         <UserPanel currentUser={currentUser} />
+        <Channels />
       </div>
     );
   }

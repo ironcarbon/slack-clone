@@ -10,8 +10,8 @@ import { connect } from "react-redux";
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, auto);
-  grid-gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: minmax(100vh, max-content);
 `;
 
 class App extends Component {

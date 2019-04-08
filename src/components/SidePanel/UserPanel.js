@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import firebase from "../../firebase";
-
+import { Image } from "../Styled";
 //import firebase from "firebase";
 
 const Header = styled.h2`
@@ -24,12 +24,6 @@ const Button = styled.button`
 //   margin: -1rem 1rem;
 //   margin-right: 3rem;
 // `;
-
-const Image = styled.img`
-  display: inline-block;
-  width: 20%;
-  border-radius: 25px;
-`;
 
 class UserPanel extends React.Component {
   state = {
