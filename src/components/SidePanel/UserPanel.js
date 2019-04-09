@@ -2,6 +2,9 @@ import React from "react";
 import styled, { css } from "styled-components";
 import firebase from "../../firebase";
 import { Image } from "../Styled";
+import logo from "../img/logo.png";
+import { Logo } from "../Styled";
+
 //import firebase from "firebase";
 
 const Header = styled.h2`
@@ -65,6 +68,7 @@ class UserPanel extends React.Component {
     // console.log(this.state.user);
     return (
       <div>
+        <Logo src={logo} />
         <Header>Chit Chat</Header>
         <Image src={this.state.user.photoURL} />
         <Button userButton onClick={this.dropDownOptions}>

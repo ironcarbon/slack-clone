@@ -10,3 +10,9 @@ export const Image = styled.img`
       width: 10%;
     `}
 `;
+
+export const Logo = styled.img`
+  display: block;
+  width: 20%;
+  margin: 0 auto;
+`;

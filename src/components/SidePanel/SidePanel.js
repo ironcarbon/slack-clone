@@ -8,7 +8,7 @@ class SidePanel extends React.Component {
     return (
       <div style={{ background: "green" }}>
         <UserPanel currentUser={currentUser} />
-        <Channels />
+        <Channels currentUser={currentUser} />
       </div>
     );
   }
