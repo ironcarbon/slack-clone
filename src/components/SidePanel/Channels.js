@@ -25,6 +25,19 @@ class Channels extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  displayChannels = channels =>
+    channels.length > 0 &&
+    channels.map(channel => (
+      <Div
+        key={channel.id}
+        onclick={() => console.log(channel)}
+        name={channel.name}
+        style={{ opacity: "0.7", color: "var(--blue)", margin: "0.1rem" }}
+      >
+        #{channel.name}
+      </Div>
+    ));
+
   onSubmitHandler = event => {
     event.preventDefault();
     if (this.isFormValid(this.state)) {
@@ -35,9 +48,22 @@ class Channels extends React.Component {
   isFormValid = ({ channelName, channelDetails }) =>
     channelName && channelDetails;
 
+  componentDidMount() {
+    this.addListener();
+  }
+
+  addListener = () => {
+    let loadedChannels = [];
+    this.state.channelsRef.on("child_added", snap => {
+      loadedChannels.push(snap.val());
+      this.setState({ channels: loadedChannels });
+      //console.log(loadedChannels);
+    });
+  };
+
   addChannel = () => {
     const { channelsRef, channelName, channelDetails, user } = this.state;
-    const key = channelsRef.push().key;
+    const key = channelsRef.push().key; //it is gonna give unique identifier for every channel thats added
 
     const newChannel = {
       id: key,
@@ -93,6 +119,7 @@ class Channels extends React.Component {
             onClick={this.openAddChannels}
           />
         </Div>
+        <div> {this.displayChannels(channels)}</div>
         {addChannels ? (
           <Modal>
             <Div modal>
