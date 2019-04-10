@@ -6,7 +6,7 @@ class SidePanel extends React.Component {
   render() {
     const { currentUser } = this.props;
     return (
-      <div style={{ background: "green" }}>
+      <div style={{ background: "var(--very-dark-gray)" }}>
         <UserPanel currentUser={currentUser} />
         <Channels currentUser={currentUser} />
       </div>

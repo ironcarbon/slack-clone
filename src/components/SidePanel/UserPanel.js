@@ -3,30 +3,8 @@ import styled, { css } from "styled-components";
 import firebase from "../../firebase";
 import { Image } from "../Styled";
 import logo from "../img/logo.png";
-import { Logo } from "../Styled";
-
-//import firebase from "firebase";
-
-const Header = styled.h2`
-  text-align: center;
-`;
-
-const Button = styled.button`
-  display: block;
-  ${props =>
-    props.userButton &&
-    css`
-      display: inline-block;
-      padding: 0.5rem;
-      border-radius: 5px;
-      font-size: 1rem;
-    `}
-`;
-// const Table = styled.div`
-//   background: pink;
-//   margin: -1rem 1rem;
-//   margin-right: 3rem;
-// `;
+import downArrow from "../img/down-arrow.png";
+import { Logo, Header, Div, Button, P } from "../Styled";
 
 class UserPanel extends React.Component {
   state = {
@@ -67,13 +45,14 @@ class UserPanel extends React.Component {
   render() {
     // console.log(this.state.user);
     return (
-      <div>
+      <Div>
         <Logo src={logo} />
         <Header>Chit Chat</Header>
         <Image src={this.state.user.photoURL} />
-        <Button userButton onClick={this.dropDownOptions}>
-          <strong>{this.state.user.displayName}</strong>
+        <Button onClick={this.dropDownOptions}>
+          <P style={{ color: "var(--pink)" }}>{this.state.user.displayName}</P>
         </Button>
+
         {this.state.showMenu ? (
           <div
             style={{ display: "grid", gridTemplateRows: "repeat(3,1fr)" }}
@@ -86,7 +65,7 @@ class UserPanel extends React.Component {
             </Button>
           </div>
         ) : null}
-      </div>
+      </Div>
     );
   }
 }
