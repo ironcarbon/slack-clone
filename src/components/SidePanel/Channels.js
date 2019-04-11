@@ -67,6 +67,10 @@ class Channels extends React.Component {
     this.addChannels();
   }
 
+  componentWillUnmount() {
+    this.removeChannels();
+  }
+
   addChannels = () => {
     let loadedChannels = [];
     this.state.channelsRef.on("child_added", snap => {
@@ -74,6 +78,10 @@ class Channels extends React.Component {
       this.setState({ channels: loadedChannels }, () => this.setFirstChannel());
       //console.log(loadedChannels);
     });
+  };
+
+  removeChannels = () => {
+    this.state.channelsRef.off();
   };
 
   setFirstChannel = () => {
