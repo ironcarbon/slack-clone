@@ -80,6 +80,12 @@ export const Div = styled.div`
       width: 80%;
       text-align: center;
     `}
+  ${props =>
+    props.active &&
+    css`
+      background: var(--very-light-gray);
+      padding: 0.5rem;
+    `}
 `;
 
 export const Button = styled.div`

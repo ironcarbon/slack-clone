@@ -11,12 +11,14 @@ import { Image, Div, Modal, P, Input, Button, Form } from "../Styled";
 
 class Channels extends React.Component {
   state = {
+    activeChannel: "",
     user: this.props.currentUser,
     channels: [],
     addChannels: false,
     channelName: "",
     channelDetails: "",
-    channelsRef: firebase.database().ref("channels")
+    channelsRef: firebase.database().ref("channels"),
+    firstLoad: true
   };
 
   closeAddChannels = () => this.setState({ addChannels: false });
@@ -28,8 +30,13 @@ class Channels extends React.Component {
   };
 
   changeChannel = channel => {
+    this.setActiveChannel(channel);
     this.props.setCurrentChannel(channel);
-    console.log(channel);
+    //console.log(channel);
+  };
+
+  setActiveChannel = channel => {
+    this.setState({ activeChannel: channel.id });
   };
 
   displayChannels = channels =>
@@ -40,6 +47,7 @@ class Channels extends React.Component {
         onClick={() => this.changeChannel(channel)}
         name={channel.name}
         style={{ opacity: "0.7", color: "var(--cyan)", margin: "0.1rem" }}
+        active={channel.id === this.state.activeChannel}
       >
         #{channel.name}
       </Div>
@@ -56,16 +64,25 @@ class Channels extends React.Component {
     channelName && channelDetails;
 
   componentDidMount() {
-    this.addListener();
+    this.addChannels();
   }
 
-  addListener = () => {
+  addChannels = () => {
     let loadedChannels = [];
     this.state.channelsRef.on("child_added", snap => {
       loadedChannels.push(snap.val());
-      this.setState({ channels: loadedChannels });
+      this.setState({ channels: loadedChannels }, () => this.setFirstChannel());
       //console.log(loadedChannels);
     });
+  };
+
+  setFirstChannel = () => {
+    let firstChannel = this.state.channels[0];
+    if (this.state.firstLoad && this.state.channels.length > 0) {
+      this.props.setCurrentChannel(firstChannel);
+      this.setActiveChannel(firstChannel);
+    }
+    this.setState({ firstLoad: false });
   };
 
   addChannel = () => {
@@ -127,6 +144,7 @@ class Channels extends React.Component {
           />
         </Div>
         <Div> {this.displayChannels(channels)}</Div>
+
         {addChannels ? (
           <Modal>
             <Div modal>
