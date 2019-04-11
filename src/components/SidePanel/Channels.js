@@ -1,5 +1,7 @@
 import React from "react";
 import firebase from "../../firebase";
+import { connect } from "react-redux";
+import { setCurrentChannel } from "../../actions";
 import repeat from ".././img/repeat.png";
 import add from ".././img/add.png";
 import checked from ".././img/checked.png";
@@ -25,14 +27,19 @@ class Channels extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  changeChannel = channel => {
+    this.props.setCurrentChannel(channel);
+    console.log(channel);
+  };
+
   displayChannels = channels =>
     channels.length > 0 &&
     channels.map(channel => (
       <Div
         key={channel.id}
-        onclick={() => console.log(channel)}
+        onClick={() => this.changeChannel(channel)}
         name={channel.name}
-        style={{ opacity: "0.7", color: "var(--blue)", margin: "0.1rem" }}
+        style={{ opacity: "0.7", color: "var(--cyan)", margin: "0.1rem" }}
       >
         #{channel.name}
       </Div>
@@ -119,7 +126,7 @@ class Channels extends React.Component {
             onClick={this.openAddChannels}
           />
         </Div>
-        <div> {this.displayChannels(channels)}</div>
+        <Div> {this.displayChannels(channels)}</Div>
         {addChannels ? (
           <Modal>
             <Div modal>
@@ -172,4 +179,7 @@ class Channels extends React.Component {
   }
 }
 
-export default Channels;
+export default connect(
+  null,
+  { setCurrentChannel }
+)(Channels);
