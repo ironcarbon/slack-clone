@@ -7,6 +7,7 @@ import add from ".././img/add.png";
 import checked from ".././img/checked.png";
 import cancel from ".././img/cancel.png";
 
+
 import { Image, Div, Modal, P, Input, Button, Form } from "../Styled";
 
 class Channels extends React.Component {

@@ -37,6 +37,9 @@ export const Input = styled.input`
       align-items: flex-end;
       font-size: 0.75;
     `}
+    ${props => props.medium && css`
+      width: 94%;
+    `}
 `;
 
 export const P = styled.p`
@@ -65,8 +68,8 @@ export const Image = styled.img`
       display: inline-block;
     `}
     ${props =>
-      props.border &&
-      css`
+    props.border &&
+    css`
         margin: 2 rem auto;
         border-radius: 0%;
         width: 2rem;
@@ -139,8 +142,8 @@ export const Button = styled.div`
       /* text-align: center; */
     `}
     ${props =>
-      props.add &&
-      css`
+    props.add &&
+    css`
         border: 2px solid var(--green);
         color: var(--green);
 
@@ -150,8 +153,8 @@ export const Button = styled.div`
         }
       `}
       ${props =>
-        props.cancel &&
-        css`
+    props.cancel &&
+    css`
           border: 2px solid var(--red);
           color: var(--red);
           :hover& {
@@ -168,6 +171,28 @@ export const Button1 = styled.button`
   margin: 1rem auto;
   background: #807d2e;
   text-align: center;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: var(--cyan);
+  ${props => props.messageBtn && css`
+    display: inline-block;
+    width: 50%;
+    font-weight: bold;
+    
+  `}
+  ${props => props.reply && css`
+    background: var(--yellow);
+    :hover&{
+      background: var(--dark-yellow);
+    }
+  `}
+  ${props => props.update && css`
+    background: var(--blue);
+    :hover&{
+      background: #363F59;
+      
+    }
+  `}
 `;
 
 export const Modal = styled.div`
