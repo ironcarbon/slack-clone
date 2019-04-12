@@ -27,6 +27,16 @@ export const Input = styled.input`
   border-radius: 5px;
   text: #f2f2f2;
   font-size: 1rem;
+  ${props =>
+    props.small &&
+    css`
+      display: inline-block;
+      width: 40%;
+      padding: 0.4rem;
+      justify-content: flex-end;
+      align-items: flex-end;
+      font-size: 0.75;
+    `}
 `;
 
 export const P = styled.p`
@@ -54,6 +64,14 @@ export const Image = styled.img`
     css`
       display: inline-block;
     `}
+    ${props =>
+      props.border &&
+      css`
+        margin: 2 rem auto;
+        border-radius: 0%;
+        width: 2rem;
+        height: 2rem;
+      `}
 `;
 
 export const Logo = styled.img`
@@ -66,6 +84,12 @@ export const Header = styled.h2`
   text-align: center;
   margin: 0.75rem;
   color: var(--cyan);
+  ${props =>
+    props.left &&
+    css`
+      text-align: left;
+      margin: 0;
+    `}
 `;
 
 export const Div = styled.div`
@@ -168,4 +192,19 @@ export const Modal = styled.div`
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+`;
+
+export const ChannelGrid = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 4fr 2fr;
+  background: var(--very-light-gray);
+  height: 100vh;
+`;
+
+export const ChannelDiv = styled.div`
+  display: flex;
+  flex-flow: columns;
+  margin: 1rem;
+  padding: 2rem 3rem;
+  background: var(--white);
 `;

@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 4fr 10fr 4fr;
   grid-template-rows: minmax(100vh, max-content);
 `;
 
