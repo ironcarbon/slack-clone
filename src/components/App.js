@@ -15,21 +15,29 @@ const Grid = styled.div`
 `;
 
 class App extends Component {
+
   render() {
-    const { currentUser } = this.props;
+
+    const { currentUser, currentChannel } = this.props;
+
     return (
       <Grid>
         <ColorPanel />
-        <SidePanel currentUser={currentUser} />
-        <Messages />
+        <SidePanel currentUser={currentUser && currentUser.uid} currentChannel={currentChannel} />
+        <Messages key={currentChannel && currentChannel.id} currentChannel={currentChannel} currentUser={currentUser} />
         <MetaPanel />
       </Grid>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
-});
+const mapStateToProps = state =>
+  (
+    {
+      currentUser: state.user.currentUser,
+      currentChannel: state.channel.currentChannel
+    }
+
+  );
 
 export default connect(mapStateToProps)(App);

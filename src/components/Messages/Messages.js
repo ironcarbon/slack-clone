@@ -2,9 +2,16 @@ import React from "react";
 import MessagesHeader from "./MessagesHeader";
 import MessageForm from "./MessageForm";
 import { ChannelGrid } from "../Styled";
+import firebase from '../../firebase';
 
 class Messages extends React.Component {
+  state = {
+    messageRef: firebase.database().ref('messages'),
+    channel: this.props.currentChannel,
+    user: this.props.currentUser
+  }
   render() {
+    const { messageRef, channel, user } = this.state;
     return (
       <ChannelGrid>
         <MessagesHeader />
@@ -17,7 +24,7 @@ class Messages extends React.Component {
         >
           Messages
         </div>
-        <MessageForm />
+        <MessageForm messageRef={messageRef} currentChannel={channel} currentUser={user} />
       </ChannelGrid>
     );
   }
