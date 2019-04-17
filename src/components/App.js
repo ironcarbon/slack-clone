@@ -23,7 +23,7 @@ class App extends Component {
     return (
       <Grid>
         <ColorPanel />
-        <SidePanel currentUser={currentUser && currentUser.uid} currentChannel={currentChannel} />
+        <SidePanel key={currentUser && currentUser.uid} currentUser={currentUser && currentUser.uid} currentChannel={currentChannel} />
         <Messages key={currentChannel && currentChannel.id} currentChannel={currentChannel} currentUser={currentUser} />
         <MetaPanel />
       </Grid>

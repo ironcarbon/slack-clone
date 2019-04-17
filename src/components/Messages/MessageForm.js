@@ -57,9 +57,18 @@ class MessageForm extends React.Component {
   }
 
   render() {
+    console.log(this.props)
+    const {errors} = this.state;
     return (
       <div style={{ margin: "1rem", background: "var(--white)" }}>
-        <Input type="text" name='message' medium placeholder="Write your message" onChange={this.onChangeHandler} />
+        <Input 
+        type="text" 
+        name='message' medium 
+        placeholder="Write your message" 
+        onChange={this.onChangeHandler} 
+        className={
+          errors.some(error => error.message.includes('message')) ? 'error' : ''
+        }/>
         <Div>
           <Button1 messageBtn reply onClick={this.sendMessage}>Reply</Button1>
           <Button1 messageBtn update>Upload Media</Button1>
