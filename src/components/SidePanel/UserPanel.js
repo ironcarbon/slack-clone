@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import firebase from "../../firebase";
 import { Image } from "../Styled";
 import logo from "../img/logo.png";
@@ -43,7 +43,7 @@ class UserPanel extends React.Component {
   };
 
   render() {
-    // console.log(this.state.user);
+
     return (
       <Div>
         <Logo src={logo} />
